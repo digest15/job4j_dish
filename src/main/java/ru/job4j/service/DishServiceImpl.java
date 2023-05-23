@@ -27,6 +27,11 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public Optional<Dish> findByName(String name) {
+        return dishRepository.findByName(name);
+    }
+
+    @Override
     public Optional<Dish> save(Dish dish) {
         try {
             dishRepository.save(dish);

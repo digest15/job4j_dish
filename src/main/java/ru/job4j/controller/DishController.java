@@ -38,6 +38,19 @@ public class DishController {
         return dish.get();
     }
 
+    @GetMapping("/name/{name}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Dish findByName(@PathVariable String name) {
+        Optional<Dish> dish = dishService.findByName(name);
+        if (dish.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("Not found Dish with name %d", name)
+            );
+        }
+        return dish.get();
+    }
+
     @PostMapping("/")
     @ResponseStatus(code = HttpStatus.OK)
     public Dish create(@RequestBody Dish dish) {
