@@ -9,8 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.domain.Dish;
 import ru.job4j.service.DishService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -40,15 +39,15 @@ public class DishController {
 
     @GetMapping("/name/{name}")
     @ResponseStatus(code = HttpStatus.OK)
-    public Dish findByName(@PathVariable String name) {
-        Optional<Dish> dish = dishService.findByName(name);
-        if (dish.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    String.format("Not found Dish with name %d", name)
-            );
-        }
-        return dish.get();
+    public DishDTO findByName(@PathVariable String name) {
+        return dishService.findByName(name)
+                .map(dish -> new DishDTO(dish.getName(), dish.getDescription()))
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                String.format("Not found Dish with name %s", name)
+                        )
+                );
     }
 
     @PostMapping("/")
