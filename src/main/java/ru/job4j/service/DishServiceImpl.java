@@ -33,14 +33,14 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Optional<Dish> save(Dish dish) {
+        Optional<Dish> res = Optional.empty();
         try {
             dishRepository.save(dish);
+            res = Optional.of(dish);
         } catch (Exception e) {
             log.error("Save or Update was wrong", e);
         }
-        return dish.getId() != 0
-                ? Optional.of(dish)
-                : Optional.empty();
+        return res;
     }
 
     @Override

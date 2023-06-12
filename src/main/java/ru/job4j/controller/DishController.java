@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.domain.Dish;
+import ru.job4j.domain.DishDTO;
 import ru.job4j.service.DishService;
 
 import java.util.*;
